@@ -3,4 +3,4 @@
 # Checks test cases.
 #
 
-npm test
+# npm test
