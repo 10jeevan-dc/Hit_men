@@ -1,0 +1,12 @@
+{
+    "env": "default",
+    "cls": {
+        "clsNamespace": "hitMen",
+        "transactionObjectName": "game"
+      },
+    "api": {
+        "header": {
+            "transactionId": "x-transaction-id"
+        }
+    }
+}

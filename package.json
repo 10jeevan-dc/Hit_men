@@ -1,0 +1,50 @@
+{
+  "name": "hitMen",
+  "version": "1.0.0",
+  "description": "hitMen game",
+  "main": "server.js",
+  "scripts": {
+    "lint": "eslint . --ignore-path .gitignore",
+    "lint-fix": "npm run lint -- --fix",
+    "start-local": "DEMO_ENV=local nodemon --inspect server.js",
+    "start": "node server.js",
+    "test-debug": "watch 'npm test' ./test . --wait=1",
+    "test-coverage": "npm run lint && DEMO_ENV=test NODE_ENV=test lab -I '__core-js_shared__,core' -v -t 90 -r lcov -o ./coverage/lcov.info && cat ./coverage/lcov.info | codacy-coverage",
+    "test-coverage:html": "DEMO_ENV=test NODE_ENV=test lab -I '__core-js_shared__,core' -r html -o ./coverage/coverage.html",
+    "test": "npm run lint && DEMO_ENV=test NODE_ENV=test lab -I '__core-js_shared__,core' -v -t 90 && npm run test-coverage:html",
+    "prepush": "npm lint && npm test"
+  },
+  "keywords": [
+    "node"
+  ],
+  "dependencies": {
+    "boom": "^6.0.0",
+    "cls-hooked": "^4.2.2",
+    "codacy-coverage": "^2.1.0",
+    "cuid": "^1.3.8",
+    "hapi": "^16",
+    "hapi-api-version": "^1.4.0",
+    "hapi-swagger": "^7.10.0",
+    "inert": "^4.2.1",
+    "joi": "^11.4.0",
+    "nconf": "^0.8.5",
+    "vision": "^4.1.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^4.18.2",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "git-hooks": "^1.1.10",
+    "husky": "^0.14.3",
+    "lab": "^14.3.4",
+    "nock": "^9.2.6",
+    "sinon": "^4.5.0",
+    "watch": "^1.0.2"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC"
+}
