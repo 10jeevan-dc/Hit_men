@@ -5,16 +5,16 @@ const Boom = require('boom');
 
 module.exports = () => [
   {
-    method: 'GET',
-    path: '/allocate/user/{username}',
+    method: 'POST',
+    path: '/allocate/user',
     config: {
       auth: false,
       tags: ['api']
     },
     handler: async (request, reply) => {
-      const { params: { username } } = request;
+      const { payload: { userName } } = request;
       try {
-        const result = await allocate(username);
+        const result = await allocate(userName);
         reply(result);
       } catch (error) {
         // TODO: implement logger

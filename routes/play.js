@@ -23,16 +23,16 @@ module.exports = () => [
     }
   },
   {
-    method: 'GET',
-    path: '/stop/{username}',
+    method: 'PATCH',
+    path: '/stop',
     config: {
       auth: false,
       tags: ['api']
     },
     handler: async (request, reply) => {
-      const { params: { username } } = request;
+      const { payload: { userName } } = request;
       try {
-        const result = await stop(username);
+        const result = await stop(userName);
         reply(result);
       } catch (error) {
         // TODO: implement logger
