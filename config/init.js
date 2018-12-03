@@ -52,7 +52,6 @@ const getConfig = (overides) => {
   return config;
 };
 
-
 module.exports = {
   getTransactionObject,
   getTransactionId,
