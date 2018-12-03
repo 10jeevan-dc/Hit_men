@@ -16,7 +16,8 @@ module.exports = () => [
         const result = await getSessionScore(username);
         reply(result);
       } catch (error) {
-        console.log(error);
+        // TODO: implement logger
+        console.log(error); // eslint-disable-line
         reply(Boom.badImplementation());
       }
     }

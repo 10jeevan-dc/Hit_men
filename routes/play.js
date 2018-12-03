@@ -16,6 +16,8 @@ module.exports = () => [
         const result = await start(username);
         reply(result);
       } catch (error) {
+        // TODO: implement logger
+        console.log(error); // eslint-disable-line
         reply(Boom.badImplementation());
       }
     }
@@ -33,6 +35,8 @@ module.exports = () => [
         const result = await stop(username);
         reply(result);
       } catch (error) {
+        // TODO: implement logger
+        console.log(error); // eslint-disable-line
         reply(Boom.badImplementation());
       }
     }
@@ -50,6 +54,8 @@ module.exports = () => [
         const result = await hit(username);
         reply(result);
       } catch (error) {
+        // TODO: implement logger
+        console.log(error); // eslint-disable-line
         reply(Boom.badImplementation());
       }
     }

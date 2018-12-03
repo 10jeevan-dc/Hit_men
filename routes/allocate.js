@@ -17,6 +17,8 @@ module.exports = () => [
         const result = await allocate(username);
         reply(result);
       } catch (error) {
+        // TODO: implement logger
+        console.log(error); // eslint-disable-line
         if (error.code === DUPLICATE_ENTRY.dbCode) {
           reply(Boom.badRequest(DUPLICATE_ENTRY.message));
         }
