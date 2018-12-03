@@ -1,8 +1,7 @@
 const Ping = require('./ping');
+const Allocate = require('./allocate');
 
 module.exports = () => {
-  const routes = [].concat(Ping());
-  // const conf = Nconf.argv().env();
-  // const dmpenv = conf.get('DMPENV');
+  const routes = [].concat(Ping(), Allocate());
   return routes;
 };
