@@ -8,6 +8,7 @@
     "lint-fix": "npm run lint -- --fix",
     "start-local": "DEMO_ENV=local nodemon --inspect server.js",
     "start": "node server.js",
+    "start-alpha": "DEMO_ENV=alpha node server.js",
     "test-debug": "watch 'npm test' ./test . --wait=1",
     "test-coverage": "npm run lint && DEMO_ENV=test NODE_ENV=test lab -I -v -t 90 -r lcov -o ./coverage/lcov.info && cat ./coverage/lcov.info | codacy-coverage",
     "test-coverage:html": "DEMO_ENV=test NODE_ENV=test lab -I -r html -o ./coverage/coverage.html",

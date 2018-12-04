@@ -1,0 +1,12 @@
+{
+    "env": "alpha",
+    "database": {
+        "host": "localhost",
+        "user": "mckgeek",
+        "password": "mckgeek@123",
+        "database": "Hit_men",
+        "waitForConnections": true,
+        "connectionLimit": 10,
+        "queueLimit": 0
+    }
+}
