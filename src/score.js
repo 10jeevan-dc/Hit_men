@@ -33,7 +33,7 @@ const getSessionScore = async (userName) => {
     if (!result.length) throw result;
     const sessionId = result[0][0].session_id;
     const selfTeam = result[0][0].team;
-    const selfScore = result[0][0].team;
+    const selfScore = result[0][0].score;
     const scoreResults = await dbStore.connectionPool.execute(
       'SELECT score, username, done, team FROM users WHERE session_id = ?',
       [sessionId]
