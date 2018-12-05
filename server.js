@@ -9,7 +9,6 @@ const HapiApiVersion = require('hapi-api-version');
 const HapiSwagger = require('hapi-swagger');
 const Inert = require('inert');
 const Vision = require('vision');
-const Path = require('path');
 const Pack = require('./package');
 
 // Since we logger is used in Plugins / Routes, we need it load config before loading them
@@ -34,10 +33,7 @@ const server = new Hapi.Server({});
 server.connection({
   port: 8080,
   routes: {
-    cors: false,
-    files: {
-      relativeTo: Path.join(__dirname, 'public')
-    }
+    cors: false
   }
 });
 
@@ -56,7 +52,7 @@ const options = {
 const apiVersionOptions = {
   validVersions: [1],
   defaultVersion: 1,
-  vendorName: 'iservice2'
+  vendorName: 'demo'
 };
 
 server.register([{
