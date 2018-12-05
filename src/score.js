@@ -27,12 +27,13 @@ const getTeamResults = (individualUsersdata) => {
 const getSessionScore = async (userName) => {
   try {
     const result = await dbStore.connectionPool.execute(
-      'SELECT session_id, team FROM users WHERE username = ?',
+      'SELECT session_id, team, score FROM users WHERE username = ?',
       [userName]
     );
     if (!result.length) throw result;
     const sessionId = result[0][0].session_id;
     const selfTeam = result[0][0].team;
+    const selfScore = result[0][0].score;
     const scoreResults = await dbStore.connectionPool.execute(
       'SELECT score, username, done, team FROM users WHERE session_id = ?',
       [sessionId]
@@ -41,7 +42,8 @@ const getSessionScore = async (userName) => {
     const teamResults = getTeamResults(scoreResults[0]);
     return {
       score: teamResults,
-      selfTeam
+      selfTeam,
+      selfScore
     };
   } catch (error) {
     throw error;
