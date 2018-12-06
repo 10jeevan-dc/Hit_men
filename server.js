@@ -33,7 +33,11 @@ const server = new Hapi.Server({});
 server.connection({
   port: 8080,
   routes: {
-    cors: false
+    cors: {
+      origin: ['*'],
+      headers: ['Accept', 'Content-Type'],
+      additionalHeaders: ['X-Requested-With']
+    }
   }
 });
 
