@@ -1,11 +1,10 @@
 steps:
-- name: 'github.com/mckdemo/hit_men'
+- name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/$PROJECT_ID/hit_men:1.0.$BUILD_ID', '.']
   timeout: 180s
-- name: 'github.com/mckdemo/hit_men'
+- name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/$PROJECT_ID/hit_men:1.0.$BUILD_ID']
-- name: 'github.com/mckdemo/hit_men/kubectl'
-  args:
+- name: 'gcr.io/cloud-builders/kubectl'
   - set
   - image
   - deployment
