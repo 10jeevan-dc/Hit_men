@@ -4,13 +4,13 @@ steps:
   timeout: 180s
 - name: 'github.com/mckdemo/hit_men'
   args: ['push', 'gcr.io/$PROJECT_ID/hit_men:1.0.$BUILD_ID']
-# - name: 'github.com/mckdemo/hit_men/kubectl'
-#   args:
-#   - set
-#   - image
-#   - deployment
-#   - hit_men
-#   - web=gcr.io/$PROJECT_ID/hit_men:1.0.$BUILD_ID
+- name: 'github.com/mckdemo/hit_men/kubectl'
+  args:
+  - set
+  - image
+  - deployment
+  - hit_men
+  - web=gcr.io/$PROJECT_ID/hit_men:1.0.$BUILD_ID
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=asia-south1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=cicd-demo'
