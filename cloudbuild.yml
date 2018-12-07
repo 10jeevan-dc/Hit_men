@@ -1,15 +1,15 @@
-steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/hit_men:1.0.$BUILD_ID', '.']
-  timeout: 180s
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/$PROJECT_ID/hit_men:1.0.$BUILD_ID']
-- name: 'gcr.io/cloud-builders/kubectl'
-  - set
-  - image
-  - deployment
-  - hit_men
-  - web=gcr.io/$PROJECT_ID/hit_men:1.0.$BUILD_ID
-  env:
-  - 'CLOUDSDK_COMPUTE_ZONE=asia-south1-a'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=cicd-demo'
+# steps:
+# - name: 'gcr.io/cloud-builders/docker'
+#   args: ['build', '-t', 'gcr.io/$PROJECT_ID/hit_men:1.0.$BUILD_ID', '.']
+#   timeout: 180s
+# - name: 'gcr.io/cloud-builders/docker'
+#   args: ['push', 'gcr.io/$PROJECT_ID/hit_men:1.0.$BUILD_ID']
+# - name: 'gcr.io/cloud-builders/kubectl'
+#   - set
+#   - image
+#   - deployment
+#   - hit_men
+#   - web=gcr.io/$PROJECT_ID/hit_men:1.0.$BUILD_ID
+#   env:
+#   - 'CLOUDSDK_COMPUTE_ZONE=asia-south1-a'
+#   - 'CLOUDSDK_CONTAINER_CLUSTER=cicd-demo'
