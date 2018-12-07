@@ -12,7 +12,7 @@ const OPONENT_TEAM = {
   B: 'A'
 };
 
-const DATE_TIME_FORMAT = 'YYYY-MM-DD hh:mm:ss';
+const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm:ss';
 
 module.exports = {
   DATE_TIME_FORMAT,
