@@ -12,4 +12,14 @@ before_install:
 notifications:
     slack: cicd-demoworkspace:Q0NBBDhB6B801v00ahh5USr8
 
-script: echo "npm test temporarily disabled"
+cache:
+  directories:
+    - "$HOME/google-cloud-sdk/"
+
+script: 
+  - echo "npm test temporarily disabled"
+  - gcloud version || true
+  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+  # Add gcloud to $PATH
+  - source /home/travis/google-cloud-sdk/path.bash.inc
+  - gcloud version
