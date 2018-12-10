@@ -1,0 +1,10 @@
+language: node_js
+
+services:
+  - docker
+
+before_install:
+  - docker build -t mckdemo/hit_men .
+
+notifications:
+    slack: cicd-demoworkspace:Q0NBBDhB6B801v00ahh5USr8
