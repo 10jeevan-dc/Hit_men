@@ -1,25 +1,39 @@
+sudo: required
 language: node_js
-
 node_js:
-  - "10"
-
+- '10'
 services:
-  - docker
-
+- docker
+env:
+  global:
+  - HELM_URL=https://storage.googleapis.com/kubernetes-helm
+  - HELM_TGZ=helm-v2.11.0-linux-amd64.tar.gz
+  - PATH=$PATH:$HOME/google-cloud-sdk/bin
+  - PROJECT_ID="fiery-booth-223812"
+  - ZONE="asia-south1-a"
+  - IMAGE_NAME=mckdemo/hit_men:latest
+  - FULL_IMAGE_NAME=gcr.io/$PROJECT_ID/$IMAGE_NAME
+  - GOOGLE_APPLICATION_CREDENTIALS="${PWD}/fiery-booth-223812-a833e36fb0c2.json"
+  - CLUSTER_NAME=cicd-demo
+  - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 before_install:
-  - docker build -t mckdemo/hit_men .
-
-notifications:
-    slack: cicd-demoworkspace:Q0NBBDhB6B801v00ahh5USr8
-
-cache:
-  directories:
-    - "$HOME/google-cloud-sdk/"
-
-script: 
-  - echo "npm test temporarily disabled"
-  - gcloud version || true
-  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
-  # Add gcloud to $PATH
-  - source /home/travis/google-cloud-sdk/path.bash.inc
-  - gcloud version
+- openssl aes-256-cbc -K $encrypted_de67a91fce86_key -iv $encrypted_de67a91fce86_iv
+  -in fiery-booth-223812-a833e36fb0c2.json.enc -out fiery-booth-223812-a833e36fb0c2.json
+  -d
+- chmod +x ./gcloud-install-sdk.sh
+- chmod +x ./gcloud-configure-sdk.sh
+- chmod +x ./helm-install.sh
+install:
+- "./gcloud-install-sdk.sh"
+- export PATH=/home/travis/gcloud/google-cloud-sdk/bin:$PATH
+- source /home/travis/.bashrc
+- "./gcloud-configure-sdk.sh"
+- "./helm-install.sh"
+script:
+- gcloud auth configure-docker
+- gcloud container clusters list
+- kubectl get pods
+- helm list
+- docker login -u _json_key -p "$(cat fiery-booth-223812-a833e36fb0c2.json)" https://gcr.io/fiery-booth-223812
+- docker build -t $FULL_IMAGE_NAME .
+- docker push $FULL_IMAGE_NAME
