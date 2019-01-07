@@ -8,8 +8,9 @@ env:
   global:
   - PROJECT_ID="fiery-booth-223812"
   - ZONE="asia-south1-a"
-  - VERSION=$(shell jq -r ".version" package.json)
-  - TAG=$VERSION_$TRAVIS_COMMIT
+  - VERSION=$(jq -r '.version' package.json)
+  - SHORT_SHA=$(echo $TRAVIS_COMMIT | cut -c1-7)
+  - TAG=${VERSION}_${SHORT_SHA}_${TRAVIS_BUILD_NUMBER}
   - IMAGE_NAME=mckdemo/hit_men:$TAG
   - FULL_IMAGE_NAME=gcr.io/$PROJECT_ID/$IMAGE_NAME
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
