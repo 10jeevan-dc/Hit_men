@@ -6,34 +6,18 @@ services:
 - docker
 env:
   global:
-  - HELM_URL=https://storage.googleapis.com/kubernetes-helm
-  - HELM_TGZ=helm-v2.11.0-linux-amd64.tar.gz
-  - PATH=$PATH:$HOME/google-cloud-sdk/bin
   - PROJECT_ID="fiery-booth-223812"
   - ZONE="asia-south1-a"
-  - IMAGE_NAME=mckdemo/hit_men:latest
+  - VERSION=$(shell jq -r ".version" package.json)
+  - TAG=$VERSION_$TRAVIS_COMMIT
+  - IMAGE_NAME=mckdemo/hit_men:$TAG
   - FULL_IMAGE_NAME=gcr.io/$PROJECT_ID/$IMAGE_NAME
-  - GOOGLE_APPLICATION_CREDENTIALS="${PWD}/fiery-booth-223812-a833e36fb0c2.json"
-  - CLUSTER_NAME=cicd-demo
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 before_install:
 - openssl aes-256-cbc -K $encrypted_de67a91fce86_key -iv $encrypted_de67a91fce86_iv
   -in fiery-booth-223812-a833e36fb0c2.json.enc -out fiery-booth-223812-a833e36fb0c2.json
   -d
-- chmod +x ./gcloud-install-sdk.sh
-- chmod +x ./gcloud-configure-sdk.sh
-- chmod +x ./helm-install.sh
-install:
-- "./gcloud-install-sdk.sh"
-- export PATH=/home/travis/gcloud/google-cloud-sdk/bin:$PATH
-- source /home/travis/.bashrc
-- "./gcloud-configure-sdk.sh"
-- "./helm-install.sh"
 script:
-- gcloud auth configure-docker
-- gcloud container clusters list
-- kubectl get pods
-- helm list
 - docker login -u _json_key -p "$(cat fiery-booth-223812-a833e36fb0c2.json)" https://gcr.io/fiery-booth-223812
 - docker build -t $FULL_IMAGE_NAME .
 - docker push $FULL_IMAGE_NAME
