@@ -11,7 +11,7 @@ const returnExistingSession = async () => {
   }
 };
 
-const getNumberOfPlayers = async (userName) => {
+const getNumberOfPlayers = async () => {
   try {
     const session = await returnExistingSession();
     if (session.length && session[0].active) {
@@ -28,8 +28,7 @@ const getNumberOfPlayers = async (userName) => {
     throw error;
   }
 };
-  
+
 module.exports = {
   getNumberOfPlayers
 };
-  
