@@ -1,5 +1,4 @@
 const dbStore = require('../services/dbStore');
-const { TEAMS } = require('../constants/common');
 
 const returnExistingSession = async () => {
   try {
