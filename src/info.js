@@ -17,7 +17,7 @@ const getNumberOfPlayers = async () => {
     if (session.length && session[0].active) {
       // game session exists
       return {
-          playerCount: session[0].team_A + session[0].team_B
+        playerCount: session[0].team_A + session[0].team_B
       };
     }
     // else return 0
