@@ -14,6 +14,12 @@ env:
   - IMAGE_NAME=mckdemo/hit_men:$TAG
   - FULL_IMAGE_NAME=gcr.io/$PROJECT_ID/$IMAGE_NAME
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+  - REPO="hit_men_cloud_scripts"
+  - GH_USER="mckgeek"
+  - GH_EMAIL="mckgeek@gmail.com"
+  - GH_ORG="mckdemo"
+  - GH_REPO="github.com/${GH_ORG}/${REPO}"
+  - secure: lNhbo1p8To2sOH+HSFxAQO7QVP8WhGaucEH9RJ4KjIYBK0c6SiRdNZLPBTkPKQqSaGuWsw9n1Nd7sygo03GvsBTgRwYQKX1ME1gwmzGJ6CGDfNronwx6ZEyB+jPWxxoPgOl6qcbbkP9kZ9E/lT9i69rRFZWQsLQnRMLFViDfAG8dG5j4yupUyGBZP0fEt4fzZIqruvg7OgyF7RLBRjTjMWaIAGl2/KxOMfPacxvAKbzNTk159KxdH5NfEtWRPllHUo2fJ+Gt/Z0TDC1bTJ1Wf3zwKzHcrOQOKPmgsa+5v7g0hvqNCl9xV9RqQ+L6al6cPAfGPuvC+JYZBGUJO42Ss/5RSxTt6y2DSe12He/LfncSUgDmIDos8gpBTZbF377c3XQ5gAy3FOfjOcPjL5bTPxUqZHMDsjVW49i1FHPgWJtSbFBDH+ssqmKHiFEz7B5Vo6/vR6pkkKzOWCsXq9rnzDzZqY11NP7alwjXVeolrvYsWOSX2FKDdD5Rap2snJErZ/dDap8hyAZiEU5hvHUQdhuzkO2ORdV1zrD7Grn8XYwn3XLqq7yYawPjmdX1XEg+jUUQJwWeVxzGL74Yygk5bxa2BOZASSWoh0LmaMaKcWSTIhMAkvrcidjNUGdnSc0jLt3I+oROEpjR8/BsavfleVqDOT0CvobE36ZRpyFE0sU=
 before_install:
 - openssl aes-256-cbc -K $encrypted_de67a91fce86_key -iv $encrypted_de67a91fce86_iv
   -in fiery-booth-223812-a833e36fb0c2.json.enc -out fiery-booth-223812-a833e36fb0c2.json
@@ -22,3 +28,13 @@ script:
 - docker login -u _json_key -p "$(cat fiery-booth-223812-a833e36fb0c2.json)" https://gcr.io/fiery-booth-223812
 - docker build -t $FULL_IMAGE_NAME .
 - docker push $FULL_IMAGE_NAME
+after_success:
+- git clone https://${GH_REPO}
+- git config --global user.email ${GH_EMAIL}
+- git config --global user.name ${GH_USER}
+- cd ${REPO}
+- sed -i "/tag/c\  tag:\ ${TAG}" hit-men/values.yaml
+- git add .
+- git commit -m "mckgeek bot - update hit-men api tag:${TAG}"
+- git remote add cloud_scripts "https://${GH_TOKEN}@${GH_REPO}"
+- git push cloud_scripts master
