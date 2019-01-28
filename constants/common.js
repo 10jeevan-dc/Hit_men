@@ -1,4 +1,4 @@
-const GAME_TIME_IN_SECS = 30;
+const GAME_TIME_IN_SECS = 20;
 
 const DEFAULT_TEAM = 'A';
 
